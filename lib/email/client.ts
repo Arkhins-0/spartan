@@ -7,6 +7,7 @@ import { env, isProduction } from "@/lib/env";
  * cron jobs) sends through {@link sendEmail}; the transport (AWS SES,
  * Mailchimp Transactional, or a dev/test logger) is resolved from the
  * environment at send time, so the app boots without email credentials.
+ * Providers: AWS SES, Brevo, Mailchimp Transactional, or a dev/test logger.
  */
 
 export interface EmailRecipient {
@@ -21,15 +22,16 @@ export interface EmailMessage {
   text?: string;
 }
 
-export type EmailProvider = "ses" | "mailchimp" | "log";
+export type EmailProvider = "ses" | "brevo" | "mailchimp" | "log";
 
 /**
  * Resolve the active provider: explicit EMAIL_PROVIDER wins; otherwise infer
- * from configured credentials (Mailchimp key for backwards compatibility,
- * then AWS region), falling back to the log provider.
+ * from configured credentials (Brevo key, then Mailchimp key for backwards
+ * compatibility, then AWS region), falling back to the log provider.
  */
 export function resolveEmailProvider(): EmailProvider {
   if (env.EMAIL_PROVIDER) return env.EMAIL_PROVIDER;
+  if (env.BREVO_API_KEY) return "brevo";
   if (env.MAILCHIMP_API_KEY) return "mailchimp";
   if (env.AWS_REGION) return "ses";
   return "log";
@@ -100,6 +102,54 @@ async function sendViaSes(message: EmailMessage): Promise<void> {
   }
 }
 
+const BREVO_SEND_URL = "https://api.brevo.com/v3/smtp/email";
+
+async function sendViaBrevo(message: EmailMessage): Promise<void> {
+  const apiKey = env.BREVO_API_KEY;
+  if (!apiKey) {
+    throw new Error("EMAIL_PROVIDER is 'brevo' but BREVO_API_KEY is not set");
+  }
+  const sender = {
+    email: env.EMAIL_FROM,
+    ...(env.EMAIL_FROM_NAME ? { name: env.EMAIL_FROM_NAME } : {}),
+  };
+  // One Brevo call per recipient, for the same reason as SES: a single call
+  // with several `to` entries shows every address to every recipient.
+  const results = await Promise.allSettled(
+    message.to.map(async (recipient) => {
+      const response = await fetch(BREVO_SEND_URL, {
+        method: "POST",
+        headers: {
+          "api-key": apiKey,
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          sender,
+          to: [{ email: recipient.email, ...(recipient.name ? { name: recipient.name } : {}) }],
+          subject: message.subject,
+          htmlContent: message.html,
+          ...(message.text ? { textContent: message.text } : {}),
+        }),
+      });
+      if (!response.ok) {
+        const detail = await response.text().catch(() => "");
+        throw new Error(`Brevo responded ${response.status}: ${detail}`);
+      }
+    })
+  );
+
+  const failures = results.filter(
+    (result): result is PromiseRejectedResult => result.status === "rejected"
+  );
+  if (failures.length > 0) {
+    failures.forEach((failure) => console.error("Brevo send failed:", failure.reason));
+    throw new Error(
+      `Brevo failed to send to ${failures.length} of ${message.to.length} recipient(s)`
+    );
+  }
+}
+
 async function sendViaMailchimp(message: EmailMessage): Promise<void> {
   const mailchimp = getMailchimpClient();
   const response = await mailchimp.messages.send({
@@ -161,6 +211,8 @@ export async function sendEmail(message: EmailMessage): Promise<void> {
   switch (provider) {
     case "ses":
       return sendViaSes(message);
+    case "brevo":
+      return sendViaBrevo(message);
     case "mailchimp":
       return sendViaMailchimp(message);
     case "log":

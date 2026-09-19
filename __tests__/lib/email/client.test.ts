@@ -3,9 +3,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 const state = vi.hoisted(() => ({
   env: {
     EMAIL_PROVIDER: undefined as string | undefined,
+    BREVO_API_KEY: undefined as string | undefined,
     MAILCHIMP_API_KEY: undefined as string | undefined,
     AWS_REGION: undefined as string | undefined,
     EMAIL_FROM: "noreply@spartan.arkhins.com",
+    EMAIL_FROM_NAME: undefined as string | undefined,
   },
   isProduction: false,
   sesSend: vi.fn(),
@@ -43,9 +45,11 @@ async function loadClient() {
 beforeEach(() => {
   state.env = {
     EMAIL_PROVIDER: undefined,
+    BREVO_API_KEY: undefined,
     MAILCHIMP_API_KEY: undefined,
     AWS_REGION: undefined,
     EMAIL_FROM: "noreply@spartan.arkhins.com",
+    EMAIL_FROM_NAME: undefined,
   };
   state.isProduction = false;
   state.sesSend.mockReset().mockResolvedValue({ MessageId: "id" });
@@ -54,6 +58,7 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
 });
 
 describe("resolveEmailProvider", () => {
@@ -68,6 +73,13 @@ describe("resolveEmailProvider", () => {
     state.env.MAILCHIMP_API_KEY = "mc-key";
     const { resolveEmailProvider } = await loadClient();
     expect(resolveEmailProvider()).toBe("mailchimp");
+  });
+
+  it("infers brevo from BREVO_API_KEY ahead of a Mailchimp key", async () => {
+    state.env.BREVO_API_KEY = "brevo-key";
+    state.env.MAILCHIMP_API_KEY = "mc-key";
+    const { resolveEmailProvider } = await loadClient();
+    expect(resolveEmailProvider()).toBe("brevo");
   });
 
   it("infers ses from AWS_REGION when no Mailchimp key is set", async () => {
@@ -135,6 +147,77 @@ describe("sendEmail via SES", () => {
     const { sendEmail } = await loadClient();
     await sendEmail({ to: [], subject: "S", html: "<p>H</p>" });
     expect(state.sesSend).not.toHaveBeenCalled();
+  });
+});
+
+describe("sendEmail via Brevo", () => {
+  const fetchMock = vi.fn();
+
+  beforeEach(() => {
+    state.env.EMAIL_PROVIDER = "brevo";
+    state.env.BREVO_API_KEY = "brevo-key";
+    state.env.EMAIL_FROM_NAME = "CTR Sports";
+    fetchMock.mockReset().mockResolvedValue(new Response('{"messageId":"id"}', { status: 201 }));
+    vi.stubGlobal("fetch", fetchMock);
+  });
+
+  it("sends one Brevo call per recipient with the sender name", async () => {
+    const { sendEmail } = await loadClient();
+    await sendEmail({
+      to: [{ email: "one@example.com" }, { email: "two@example.com", name: "Two" }],
+      subject: "Hello",
+      html: "<p>Hi</p>",
+      text: "Hi",
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe("https://api.brevo.com/v3/smtp/email");
+    expect(init.method).toBe("POST");
+    expect(init.headers["api-key"]).toBe("brevo-key");
+    const bodies = fetchMock.mock.calls.map(([, call]) => JSON.parse(call.body));
+    expect(bodies[0]).toEqual({
+      sender: { email: "noreply@spartan.arkhins.com", name: "CTR Sports" },
+      to: [{ email: "one@example.com" }],
+      subject: "Hello",
+      htmlContent: "<p>Hi</p>",
+      textContent: "Hi",
+    });
+    expect(bodies[1].to).toEqual([{ email: "two@example.com", name: "Two" }]);
+  });
+
+  it("omits the sender name and text body when not provided", async () => {
+    state.env.EMAIL_FROM_NAME = undefined;
+    const { sendEmail } = await loadClient();
+    await sendEmail({ to: [{ email: "one@example.com" }], subject: "S", html: "<p>H</p>" });
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body);
+    expect(body.sender).toEqual({ email: "noreply@spartan.arkhins.com" });
+    expect(body.textContent).toBeUndefined();
+  });
+
+  it("throws when Brevo rejects any recipient", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    fetchMock
+      .mockResolvedValueOnce(new Response("{}", { status: 201 }))
+      .mockResolvedValueOnce(new Response('{"code":"unauthorized"}', { status: 401 }));
+    const { sendEmail } = await loadClient();
+    await expect(
+      sendEmail({
+        to: [{ email: "one@example.com" }, { email: "two@example.com" }],
+        subject: "S",
+        html: "<p>H</p>",
+      })
+    ).rejects.toThrow("Brevo failed to send to 1 of 2 recipient(s)");
+    expect(consoleError).toHaveBeenCalled();
+  });
+
+  it("throws a clear error when selected without an API key", async () => {
+    state.env.BREVO_API_KEY = undefined;
+    const { sendEmail } = await loadClient();
+    await expect(
+      sendEmail({ to: [{ email: "one@example.com" }], subject: "S", html: "<p>H</p>" })
+    ).rejects.toThrow("BREVO_API_KEY is not set");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });
 

@@ -62,7 +62,7 @@ bun run test:watch __tests__/lib/utils/validation.test.ts
 - **Database**: Prisma 7 ORM with PostgreSQL - parameterized queries prevent SQL injection; config in `prisma/prisma.config.ts`
 - **Validation**: Zod v4 (API differs from v3 — check schemas carefully)
 - **Authentication**: Auth.js v5 with credential provider, bcrypt password hashing
-- **Email**: Provider-agnostic `sendEmail()` seam — AWS SES (recommended) or Mailchimp Transactional, selected via `EMAIL_PROVIDER`
+- **Email**: Provider-agnostic `sendEmail()` seam — AWS SES (recommended), Brevo, or Mailchimp Transactional, selected via `EMAIL_PROVIDER`
 
 ### Application Structure
 
@@ -333,10 +333,10 @@ export default async function RosterPage({ params }: { params: { teamId: string 
 ### Email Service Architecture
 
 Email is provider-agnostic behind `sendEmail()` in `lib/email/client.ts`:
-- Providers: AWS SES (`@aws-sdk/client-sesv2`, recommended), Mailchimp Transactional (legacy), and a dev-only `log` provider
-- Selection: `EMAIL_PROVIDER` env var, or inferred from credentials (`MAILCHIMP_API_KEY` → mailchimp, `AWS_REGION` → ses), else `log`
+- Providers: AWS SES (`@aws-sdk/client-sesv2`, recommended), Brevo (REST API via `fetch`, `BREVO_API_KEY`, optional `EMAIL_FROM_NAME`), Mailchimp Transactional (legacy), and a dev-only `log` provider
+- Selection: `EMAIL_PROVIDER` env var, or inferred from credentials (`BREVO_API_KEY` → brevo, `MAILCHIMP_API_KEY` → mailchimp, `AWS_REGION` → ses), else `log`
 - The app boots without email credentials; in production an unconfigured send throws at send time (never at boot)
-- SES sends one API call per recipient so recipients never see each other's addresses (matches Mailchimp's `preserve_recipients: false` default)
+- SES and Brevo send one API call per recipient so recipients never see each other's addresses (matches Mailchimp's `preserve_recipients: false` default)
 - All templates in `lib/email/templates.ts` call `sendEmail()` — never import a provider SDK directly
 
 **Email Templates** (`lib/email/templates.ts`):
@@ -372,7 +372,8 @@ EMAIL_FROM             # Verified sender email address
 
 **Optional Variables**:
 ```bash
-EMAIL_PROVIDER                # ses | mailchimp | log (inferred from credentials when unset)
+EMAIL_PROVIDER                # ses | brevo | mailchimp | log (inferred from credentials when unset)
+BREVO_API_KEY / EMAIL_FROM_NAME  # Brevo transactional API key + optional sender display name
 STORAGE_PROVIDER              # s3 | vercel-blob | none (inferred: S3_BUCKET -> s3, BLOB_READ_WRITE_TOKEN -> vercel-blob)
 S3_BUCKET / S3_REGION         # Private S3-compatible bucket for documents + galleries (S3_ENDPOINT, S3_FORCE_PATH_STYLE for R2/MinIO/B2)
 BLOB_READ_WRITE_TOKEN         # Vercel Blob alternative

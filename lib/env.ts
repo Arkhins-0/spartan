@@ -10,11 +10,14 @@ const envSchema = z.object({
     NEXTAUTH_SECRET: z.string().min(32, 'NEXTAUTH_SECRET must be at least 32 characters long'),
 
     // Email Service — provider is optional; when unset it is inferred from
-    // credentials (MAILCHIMP_API_KEY -> mailchimp, AWS_REGION -> ses) and
-    // falls back to a log-only provider so the app boots without email creds.
-    EMAIL_PROVIDER: z.enum(['ses', 'mailchimp', 'log']).optional(),
+    // credentials (BREVO_API_KEY -> brevo, MAILCHIMP_API_KEY -> mailchimp,
+    // AWS_REGION -> ses) and falls back to a log-only provider so the app
+    // boots without email creds.
+    EMAIL_PROVIDER: z.enum(['ses', 'brevo', 'mailchimp', 'log']).optional(),
+    BREVO_API_KEY: z.string().optional(),
     MAILCHIMP_API_KEY: z.string().optional(),
     EMAIL_FROM: z.string().email('EMAIL_FROM must be a valid email address'),
+    EMAIL_FROM_NAME: z.string().trim().optional(),
 
     // Node Environment
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
@@ -73,8 +76,10 @@ function validateEnv() {
             NEXTAUTH_URL: process.env.NEXTAUTH_URL || '',
             NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || '',
             EMAIL_PROVIDER: process.env.EMAIL_PROVIDER as Env['EMAIL_PROVIDER'],
+            BREVO_API_KEY: process.env.BREVO_API_KEY,
             MAILCHIMP_API_KEY: process.env.MAILCHIMP_API_KEY,
             EMAIL_FROM: process.env.EMAIL_FROM || '',
+            EMAIL_FROM_NAME: process.env.EMAIL_FROM_NAME?.trim() || undefined,
             NODE_ENV: (process.env.NODE_ENV || 'development') as 'development' | 'production' | 'test',
             CRON_SECRET: process.env.CRON_SECRET,
             UPTIME_CHECK_TOKEN: process.env.UPTIME_CHECK_TOKEN,
@@ -128,6 +133,7 @@ function validateEnv() {
             console.error('   EMAIL_FROM - Sender email address')
             console.error('\n📧 Email provider (optional — emails are logged, not sent, when unconfigured):')
             console.error('   EMAIL_PROVIDER=ses       requires AWS_REGION (+ AWS credentials)')
+            console.error('   EMAIL_PROVIDER=brevo     requires BREVO_API_KEY')
             console.error('   EMAIL_PROVIDER=mailchimp requires MAILCHIMP_API_KEY')
             console.error('\n💡 Copy .env.example to .env.local and fill in the values')
 
@@ -143,6 +149,10 @@ function validateEnv() {
  * credentials are required — sends fall back to the log provider.)
  */
 function assertEmailProviderConfig(env: z.infer<typeof envSchema>): void {
+    if (env.EMAIL_PROVIDER === 'brevo' && !env.BREVO_API_KEY) {
+        console.error('🚨 EMAIL_PROVIDER=brevo requires BREVO_API_KEY to be set')
+        process.exit(1)
+    }
     if (env.EMAIL_PROVIDER === 'mailchimp' && !env.MAILCHIMP_API_KEY) {
         console.error('🚨 EMAIL_PROVIDER=mailchimp requires MAILCHIMP_API_KEY to be set')
         process.exit(1)
