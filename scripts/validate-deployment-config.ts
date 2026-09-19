@@ -55,12 +55,14 @@ function requireCondition(failures: string[], condition: boolean, message: strin
  * Each route must have a schedule entry and be curled with the CRON_SECRET bearer.
  */
 export const CRON_WORKFLOW_PATH = '.github/workflows/cron-jobs.yml';
+// Every job runs once a week, Tuesday 10:00 IST (04:30 UTC).
+export const WEEKLY_CRON_SCHEDULE = '30 4 * * 2';
 export const REQUIRED_CRON_JOBS: ReadonlyArray<{ route: string; schedule: string }> = [
-  { route: '/api/cron/rsvp-reminders', schedule: '0 * * * *' },
-  { route: '/api/cron/notification-batches', schedule: '0 8 * * *' },
-  { route: '/api/cron/event-waitlist', schedule: '*/10 * * * *' },
-  { route: '/api/cron/gear-notifications', schedule: '*/15 * * * *' },
-  { route: '/api/cron/volunteer-reminders', schedule: '*/15 * * * *' },
+  { route: '/api/cron/rsvp-reminders', schedule: WEEKLY_CRON_SCHEDULE },
+  { route: '/api/cron/notification-batches', schedule: WEEKLY_CRON_SCHEDULE },
+  { route: '/api/cron/event-waitlist', schedule: WEEKLY_CRON_SCHEDULE },
+  { route: '/api/cron/gear-notifications', schedule: WEEKLY_CRON_SCHEDULE },
+  { route: '/api/cron/volunteer-reminders', schedule: WEEKLY_CRON_SCHEDULE },
 ];
 
 function workflowSchedulesRoute(workflow: string, route: string, schedule: string): boolean {
