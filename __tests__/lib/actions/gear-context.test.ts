@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { mockRequireUserId, mockPrisma } = vi.hoisted(() => ({
   mockRequireUserId: vi.fn(),
@@ -36,6 +36,17 @@ beforeEach(() => {
 });
 
 describe("gear inventory context", () => {
+  // The fixtures below use fixed 2026-08/09 dates; pin "now" before them so
+  // expiry and "future only" filters don't start failing as the calendar moves.
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-08-17T12:00:00.000Z"));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("returns null outside the requested league", async () => {
     mockPrisma.leagueUser.findFirst.mockResolvedValue(null);
     await expect(getGearInventoryContext(LEAGUE_ID)).resolves.toBeNull();

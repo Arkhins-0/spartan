@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const {
   mockRequireTeamAdmin,
@@ -148,6 +148,17 @@ beforeEach(() => {
 });
 
 describe("reservation-backed proposal acceptance", () => {
+  // The fixtures below use fixed 2026-08/09 dates; pin "now" before them so
+  // expiry and "future only" filters don't start failing as the calendar moves.
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-08-17T12:00:00.000Z"));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("threads one reservation into the accepted game and its participant Event", async () => {
     const result = await acceptGameProposal({
       proposalId: PROPOSAL_ID,

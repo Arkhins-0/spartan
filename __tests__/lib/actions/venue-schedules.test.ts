@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Prisma } from "@prisma/client";
 
 vi.mock("next/cache", () => ({
@@ -324,6 +324,17 @@ describe("schedule block actions", () => {
 });
 
 describe("public schedule query", () => {
+  // The fixtures below use fixed 2026-08/09 dates; pin "now" before them so
+  // expiry and "future only" filters don't start failing as the calendar moves.
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ["Date"] });
+    vi.setSystemTime(new Date("2026-08-17T12:00:00.000Z"));
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("returns only public published schedule data for published rinks", async () => {
     mockPrisma.venue.findFirst.mockResolvedValue({
       id: VENUE_ID,
