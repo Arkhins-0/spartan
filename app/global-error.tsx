@@ -11,7 +11,7 @@ import * as Sentry from "@sentry/nextjs";
 const STYLES = `
   :root { --bg: #F2F2F2; --card: #FFFFFF; --fg: #1A1A1A; --muted: #6B6B6B; --line: rgba(0,0,0,0.10); --btn: #1A1A1A; --btn-fg: #FFFFFF; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #212121; --card: #2C2C2C; --fg: #FBFBFB; --muted: #ADADAD; --line: rgba(255,255,255,0.10); --btn: #F7D619; --btn-fg: #1A1A1A; }
+    :root { --bg: #000000; --card: #0A0A0A; --fg: #EDEDED; --muted: #A1A1A1; --line: #2E2E2E; --btn: #EDEDED; --btn-fg: #000000; }
   }
   .ol-crash-btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
   .ol-crash-btn:active { transform: scale(0.97); }

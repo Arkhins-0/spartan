@@ -36,17 +36,25 @@ describe('Console theme', () => {
   describe('Dark scheme ("Night") — the reference palette', () => {
     const dark = () => theme.colorSchemes.dark!.palette;
 
-    it('steps page → card → muted one grey at a time', () => {
-      expect(dark().background.default).toBe('#212121');
-      expect(dark().background.paper).toBe('#2C2C2C');
-      expect(dark().muted.main).toBe('#3C3C3C');
-      expect(dark().divider).toBe('rgba(255, 255, 255, 0.10)');
+    it('steps true black → card → muted one near-black at a time', () => {
+      expect(dark().background.default).toBe('#000000');
+      expect(dark().background.paper).toBe('#0A0A0A');
+      expect(dark().muted.main).toBe('#1A1A1A');
+      expect(dark().divider).toBe('#2E2E2E');
     });
 
-    it('makes the yellow accent the write action', () => {
-      expect(dark().primary.main).toBe('#F7D619');
-      expect(dark().primary.contrastText).toBe('#1A1A1A');
+    // Geist-style: the write action is white on black, and the yellow stays a
+    // highlight (focus, selection, "unsaved") exactly as it is by day.
+    it('uses a white write action and keeps the accent as a highlight', () => {
+      expect(dark().primary.main).toBe('#EDEDED');
+      expect(dark().primary.contrastText).toBe('#000000');
       expect(dark().accent.main).toBe('#F7D619');
+    });
+
+    it('keeps the hairline legible on every surface in the ramp', () => {
+      for (const surface of ['#000000', '#0A0A0A', '#1A1A1A']) {
+        expect(ratio(dark().divider as string, surface), surface).toBeGreaterThanOrEqual(1.2);
+      }
     });
 
     it('keeps text and every status colour at AA on the card surface', () => {
@@ -102,7 +110,7 @@ describe('Console theme', () => {
     it('resolves the legacy marketing tokens onto the Console ramp (no second palette)', () => {
       expect(theme.colorSchemes.light!.palette.marketing.primary).toBe('#1A1A1A');
       expect(theme.colorSchemes.light!.palette.marketing.gradient).toBe('none');
-      expect(theme.colorSchemes.dark!.palette.marketing.hero).toBe('#212121');
+      expect(theme.colorSchemes.dark!.palette.marketing.hero).toBe('#000000');
     });
 
     it('styles the legacy marketing display variants on the same small-and-heavy scale', () => {

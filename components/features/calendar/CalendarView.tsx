@@ -51,7 +51,7 @@ type CalendarViewMode = "month" | "agenda";
  * `theme.palette.X.main` under CSS variables always yields the LIGHT literal,
  * which in this theme makes `primary` near-black in dark mode. So the palette
  * is a fixed set of mid-tone hues chosen to read on both the white day card and
- * the #2C2C2C night card. They are only ever used as a 3px edge, a 10px dot, or
+ * the #0A0A0A night card. They are only ever used as a 3px edge, a 10px dot, or
  * a 12–25% tint behind `text.primary` — never as text — so contrast against
  * the surface is what matters, not against text.
  */

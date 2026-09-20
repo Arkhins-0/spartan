@@ -14,8 +14,10 @@ import '@/lib/theme-augmentations';
 // legible at the 13–14px the tool is built at), JetBrains Mono for tabular
 // figures. Shape: 8px panels, 6px controls, pills for badges only.
 //
-// Two schemes share one structure. Dark ("Night") is the reference palette:
-// page #212121 → card #2C2C2C → muted #3C3C3C. Light ("Day") inverts it:
+// Two schemes share one structure. Dark ("Night") is a true-black console in
+// the Vercel/Geist idiom: page #000000 → card #0A0A0A → muted #1A1A1A, split
+// by solid #2E2E2E hairlines rather than translucent white, so a border reads
+// the same whichever surface it lands on. Light ("Day") inverts it:
 // page #F2F2F2 → card #FFFFFF → muted #E9E9E9, with the same hairline logic in
 // black. In light, the "write" colour is ink rather than yellow: yellow text on
 // white cannot reach AA, so the accent stays a highlight and the primary stays
@@ -52,11 +54,11 @@ const MARKETING_LIGHT = {
   hero: '#F2F2F2',
 };
 const MARKETING_DARK = {
-  primary: '#FBFBFB',
-  secondary: '#ADADAD',
+  primary: '#EDEDED',
+  secondary: '#A1A1A1',
   accent: '#F7D619',
   gradient: 'none',
-  hero: '#212121',
+  hero: '#000000',
 };
 
 // Light scheme: "Day". Every status colour clears 4.5:1 on white paper.
@@ -123,61 +125,63 @@ const lightPalette: PaletteOptions = {
   marketing: MARKETING_LIGHT,
 };
 
-// Dark scheme: "Night" — the reference palette. Status colours are lifted so
-// each clears 4.5:1 on the card surface (#2C2C2C).
+// Dark scheme: "Night" — the reference palette, in the Geist idiom: true black
+// page, near-black cards, and one solid hairline. The write action is white on
+// black (the accent stays a highlight, as it is by day); every status colour
+// clears 4.5:1 on the card surface (#0A0A0A).
 const darkPalette: PaletteOptions = {
   primary: {
-    main: ACCENT.main, // The write action IS the accent at night
-    light: ACCENT.light,
-    dark: ACCENT.dark,
-    contrastText: ACCENT.contrastText,
+    main: '#EDEDED', // White button, black label — the Geist primary
+    light: '#FFFFFF',
+    dark: '#CCCCCC',
+    contrastText: '#000000',
   },
   secondary: {
-    main: '#3C3C3C',
-    light: '#4A4A4A',
-    dark: '#2C2C2C',
-    contrastText: '#FBFBFB',
+    main: '#1A1A1A',
+    light: '#2E2E2E',
+    dark: '#0A0A0A',
+    contrastText: '#EDEDED',
   },
   accent: ACCENT,
   muted: {
-    main: '#3C3C3C',
-    light: '#4A4A4A',
-    dark: '#2C2C2C',
-    contrastText: '#ADADAD',
+    main: '#1A1A1A',
+    light: '#2E2E2E',
+    dark: '#0A0A0A',
+    contrastText: '#A1A1A1',
   },
   error: {
-    main: '#FF8A80', // 6.0:1 on card
-    light: '#FFB3AD',
-    dark: '#F0605F',
-    contrastText: '#1A1A1A',
+    main: '#FF6369', // 6.8:1 on card
+    light: '#FF9DA1',
+    dark: '#E5484D',
+    contrastText: '#000000',
   },
   warning: {
-    main: '#FBBF24',
-    light: '#FCD34D',
-    dark: '#D97706',
-    contrastText: '#1A1A1A',
+    main: '#F5A623',
+    light: '#F7B955',
+    dark: '#D18616',
+    contrastText: '#000000',
   },
   success: {
-    main: '#4ADE80',
-    light: '#86EFAC',
-    dark: '#22C55E',
-    contrastText: '#1A1A1A',
+    main: '#62C073',
+    light: '#8FD69C',
+    dark: '#45A557',
+    contrastText: '#000000',
   },
   info: {
-    main: '#7DD3FC',
-    light: '#BAE6FD',
-    dark: '#38BDF8',
-    contrastText: '#1A1A1A',
+    main: '#3291FF',
+    light: '#6CB0FF',
+    dark: '#0070F3',
+    contrastText: '#000000',
   },
   background: {
-    default: '#212121',
-    paper: '#2C2C2C',
+    default: '#000000',
+    paper: '#0A0A0A',
   },
-  divider: 'rgba(255, 255, 255, 0.10)',
+  divider: '#2E2E2E',
   text: {
-    primary: '#FBFBFB',
-    secondary: '#ADADAD', // 6.1:1 on card
-    disabled: 'rgba(251, 251, 251, 0.38)',
+    primary: '#EDEDED',
+    secondary: '#A1A1A1', // 7.5:1 on card
+    disabled: 'rgba(237, 237, 237, 0.38)',
   },
   action: {
     hover: 'rgba(255, 255, 255, 0.06)',
