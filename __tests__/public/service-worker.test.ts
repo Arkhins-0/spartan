@@ -21,7 +21,7 @@ describe('public service worker', () => {
   it('pre-caches the offline fallback and revalidating brand assets', () => {
     expect(serviceWorker).toContain("'/offline.html'");
     expect(serviceWorker).toContain("'/images/logo.webp'");
-    expect(serviceWorker).toContain("'/images/alt-logo-transparent-background.png'");
+    expect(serviceWorker).toContain("'/images/alt-logo-white-background.png'");
     expect(serviceWorker).toContain("'/site.webmanifest'");
   });
 

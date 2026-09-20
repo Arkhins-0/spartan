@@ -17,7 +17,7 @@ const PRECACHE_URLS = [
   '/android-chrome-512x512.png',
   '/apple-touch-icon.png',
   '/images/logo.webp',
-  '/images/alt-logo-transparent-background.png',
+  '/images/alt-logo-white-background.png',
 ];
 
 const PUBLIC_NAVIGATION_PREFIXES = [

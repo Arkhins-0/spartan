@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Box, SxProps, Theme } from '@mui/material';
 
-const BRAND_LOGO_PATH = '/images/alt-logo-transparent-background.png';
+const BRAND_LOGO_PATH = '/images/alt-logo-white-background.png';
 const ICON_LOGO_PATH = '/images/logo.webp';
 const LOGO_ALT_TEXT = 'Spartan - Simplify Your Season';
 

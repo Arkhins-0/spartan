@@ -13,7 +13,6 @@ import brandFull from '@/.design-sync/assets/brand-logo-full.png';
 const ASSET_MAP: Record<string, string> = {
   '/images/logo.webp': logoIcon,
   '/images/logo.png': logoIcon,
-  '/images/alt-logo-transparent-background.png': brandFull,
   '/images/alt-logo-white-background.png': brandFull,
 };
 

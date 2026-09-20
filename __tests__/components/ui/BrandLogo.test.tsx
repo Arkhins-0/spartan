@@ -46,14 +46,14 @@ describe('BrandLogo', () => {
       renderWithTheme(<BrandLogo variant="full" />);
       const logo = screen.getByAltText('Spartan - Simplify Your Season');
       expect(logo).toBeInTheDocument();
-      expect(logo).toHaveAttribute('src', '/images/alt-logo-transparent-background.png');
+      expect(logo).toHaveAttribute('src', '/images/alt-logo-white-background.png');
     });
 
     it('renders compact variant with branded logo', () => {
       renderWithTheme(<BrandLogo variant="compact" />);
       const logo = screen.getByAltText('Spartan - Simplify Your Season');
       expect(logo).toBeInTheDocument();
-      expect(logo).toHaveAttribute('src', '/images/alt-logo-transparent-background.png');
+      expect(logo).toHaveAttribute('src', '/images/alt-logo-white-background.png');
     });
 
     it('renders with default variant when not specified', () => {
@@ -217,13 +217,13 @@ describe('BrandLogo', () => {
     it('full variant uses full branded logo path', () => {
       renderWithTheme(<BrandLogo variant="full" />);
       const logo = screen.getByAltText('Spartan - Simplify Your Season');
-      expect(logo).toHaveAttribute('src', '/images/alt-logo-transparent-background.png');
+      expect(logo).toHaveAttribute('src', '/images/alt-logo-white-background.png');
     });
 
     it('compact variant uses full branded logo path', () => {
       renderWithTheme(<BrandLogo variant="compact" />);
       const logo = screen.getByAltText('Spartan - Simplify Your Season');
-      expect(logo).toHaveAttribute('src', '/images/alt-logo-transparent-background.png');
+      expect(logo).toHaveAttribute('src', '/images/alt-logo-white-background.png');
     });
   });
 
@@ -269,7 +269,7 @@ describe('BrandLogo', () => {
 
       const logo = screen.getByAltText('Spartan - Simplify Your Season');
       expect(logo).toBeInTheDocument();
-      expect(logo).toHaveAttribute('src', '/images/alt-logo-transparent-background.png');
+      expect(logo).toHaveAttribute('src', '/images/alt-logo-white-background.png');
       expect(logo).toHaveAttribute('data-priority', 'true');
 
       const link = screen.getByRole('link');
