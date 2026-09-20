@@ -76,6 +76,11 @@ jobs:
           if [ -n "${{ github.event.inputs.version }}" ]; then
             echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
           else
+            # Refresh tags first: the version is derived from them, and a tag
+            # pushed after this run's checkout (a separate `git push --tags`,
+            # or a concurrent release) is otherwise invisible here and the run
+            # recomputes a version that already exists on the remote.
+            git fetch --tags --force --quiet origin || true
             # Get the latest tag
             LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
             echo "Latest tag: ${LATEST_TAG:-none}"
@@ -119,7 +124,10 @@ jobs:
         id: tag_check
         run: |
           VERSION=${{ steps.version.outputs.version }}
-          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+          # Check the remote as well as locally: `git push` of the tag fails
+          # with "already exists" if only the remote has it, which aborts the
+          # run after a green build.
+          if git rev-parse "v$VERSION" >/dev/null 2>&1 || git ls-remote --tags --exit-code origin "refs/tags/v$VERSION" >/dev/null 2>&1; then
             echo "exists=true" >> $GITHUB_OUTPUT
             echo "⏭️ Tag v$VERSION already exists — skipping tag creation and release (handled by tag-release workflow)"
           else
