@@ -1,10 +1,10 @@
 import { Container, Typography, Box, Card, CardContent, CardHeader, Stack, Chip, Link } from '@mui/material';
 import {
   Email as EmailIcon,
+  Handshake as HandshakeIcon,
   GitHub as GitHubIcon,
   BugReport as BugReportIcon,
   Instagram as InstagramIcon,
-  LinkedIn as LinkedInIcon,
 } from '@mui/icons-material';
 import { generatePageMetadata, getBreadcrumbSchema } from '@/lib/config/seo';
 import StructuredData from '@/components/ui/StructuredData';
@@ -52,12 +52,12 @@ const channels = [
     external: true,
   },
   {
-    icon: LinkedInIcon,
-    title: 'LinkedIn',
+    icon: HandshakeIcon,
+    title: 'Partnerships',
     description: 'Partnership, association, and business enquiries:',
-    label: 'in/krishna-vijay',
-    href: 'https://linkedin.com/in/krishna-vijay',
-    external: true,
+    label: 'arkhins@arkhins.com',
+    href: 'mailto:arkhins@arkhins.com',
+    external: false,
   },
 ];
 

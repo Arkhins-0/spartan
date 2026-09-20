@@ -119,9 +119,9 @@ export function getOrganizationSchema() {
         sameAs: [
             'https://github.com/Arkhins-0/spartan',
             'https://instagram.com/arkhins',
-            'https://linkedin.com/in/krishna-vijay',
             'https://arkhins.com',
         ],
+        email: 'arkhins@arkhins.com',
         contactPoint: {
             '@type': 'ContactPoint',
             email: 'tech@ctrsports.in',

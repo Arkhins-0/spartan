@@ -125,8 +125,8 @@ export default function AboutPage() {
                   Instagram
                 </Link>
                 , and{' '}
-                <Link href="https://linkedin.com/in/krishna-vijay" target="_blank" rel="noopener noreferrer">
-                  LinkedIn
+                <Link href="mailto:arkhins@arkhins.com">
+                  email
                 </Link>
                 .
               </Typography>

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import EmailIcon from '@mui/icons-material/Email';
 import Logo from '@/components/ui/Logo';
 
 const footerSections = [
@@ -57,7 +57,7 @@ const footerSections = [
 const socialLinks = [
   { icon: GitHubIcon, href: 'https://github.com/Arkhins-0/spartan', label: 'GitHub' },
   { icon: InstagramIcon, href: 'https://instagram.com/arkhins', label: 'Instagram' },
-  { icon: LinkedInIcon, href: 'https://linkedin.com/in/krishna-vijay', label: 'LinkedIn' },
+  { icon: EmailIcon, href: 'mailto:arkhins@arkhins.com', label: 'Email' },
 ];
 
 const footerLinkSx = {

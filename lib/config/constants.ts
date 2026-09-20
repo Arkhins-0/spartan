@@ -39,7 +39,8 @@ export const DEVELOPER_URL = "https://arkhins.com";
 export const DOCS_URL = "https://spartan.arkhins.com/docs";
 export const GITHUB_URL = "https://github.com/Arkhins-0/spartan";
 export const INSTAGRAM_URL = "https://instagram.com/arkhins";
-export const LINKEDIN_URL = "https://linkedin.com/in/krishna-vijay";
+export const BUSINESS_EMAIL = "arkhins@arkhins.com";
+export const BUSINESS_EMAIL_URL = "mailto:arkhins@arkhins.com";
 
 /**
  * Authentication error codes (used in CredentialsSignin.code for Auth.js v5)

@@ -32,8 +32,8 @@ vi.mock('@mui/icons-material/Instagram', () => ({
   default: () => <div data-testid="instagram-icon">Instagram</div>,
 }));
 
-vi.mock('@mui/icons-material/LinkedIn', () => ({
-  default: () => <div data-testid="linkedin-icon">LinkedIn</div>,
+vi.mock('@mui/icons-material/Email', () => ({
+  default: () => <div data-testid="email-icon">Email</div>,
 }));
 
 // Helper to render with theme
@@ -68,7 +68,7 @@ describe('MarketingFooter', () => {
 
       expect(screen.getByLabelText('GitHub')).toHaveAttribute('href', 'https://github.com/Arkhins-0/spartan');
       expect(screen.getByLabelText('Instagram')).toHaveAttribute('href', 'https://instagram.com/arkhins');
-      expect(screen.getByLabelText('LinkedIn')).toHaveAttribute('href', 'https://linkedin.com/in/krishna-vijay');
+      expect(screen.getByLabelText('Email')).toHaveAttribute('href', 'mailto:arkhins@arkhins.com');
     });
 
     it('social links open in new tab', () => {
@@ -206,7 +206,7 @@ describe('MarketingFooter', () => {
 
       expect(screen.getByLabelText('GitHub')).toBeInTheDocument();
       expect(screen.getByLabelText('Instagram')).toBeInTheDocument();
-      expect(screen.getByLabelText('LinkedIn')).toBeInTheDocument();
+      expect(screen.getByLabelText('Email')).toBeInTheDocument();
     });
 
     it('maintains keyboard navigation for all links', () => {
