@@ -15,7 +15,7 @@ Thank you for your interest in contributing to Spartan! This guide will help you
 
 ```bash
 # Clone the repository
-git clone https://github.com/Arkhins-0/Spartan.git
+git clone https://github.com/Arkhins-0/spartan.git
 cd Spartan
 
 # Install dependencies

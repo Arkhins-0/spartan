@@ -117,7 +117,7 @@ describe('HomePage landing integration', () => {
     expect(screen.getByRole('link', { name: 'See Features' })).toHaveAttribute('href', '/features');
     expect(screen.getByRole('link', { name: /view spartan on github/i })).toHaveAttribute(
       'href',
-      'https://github.com/Arkhins-0/Spartan'
+      'https://github.com/Arkhins-0/spartan'
     );
 
     await waitFor(() => expect(marketingEvents.heroSectionView).toHaveBeenCalledTimes(1));

@@ -99,7 +99,7 @@ export default function AboutPage() {
               </Typography>
               <Typography variant="body1" paragraph>
                 Visit our{' '}
-                <Link href="https://github.com/Arkhins-0/Spartan" target="_blank" rel="noopener noreferrer">
+                <Link href="https://github.com/Arkhins-0/spartan" target="_blank" rel="noopener noreferrer">
                   GitHub repository
                 </Link>
                 {' '}to contribute, report issues, or learn more about the project.

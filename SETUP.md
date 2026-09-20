@@ -239,7 +239,7 @@ bun run db:generate  # Generate Prisma Client
 1. **Clone and Install**:
 
    ```bash
-   git clone https://github.com/Arkhins-0/Spartan.git
+   git clone https://github.com/Arkhins-0/spartan.git
    cd Spartan
    bun install
    ```

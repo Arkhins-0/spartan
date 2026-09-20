@@ -40,7 +40,7 @@ describe('SocialProofSection', () => {
     expect(screen.getByText('No credit card required')).toBeInTheDocument();
 
     const githubLink = screen.getByRole('link', { name: /view spartan on github/i });
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/Arkhins-0/Spartan');
+    expect(githubLink).toHaveAttribute('href', 'https://github.com/Arkhins-0/spartan');
     expect(githubLink).toHaveAttribute('target', '_blank');
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
   });

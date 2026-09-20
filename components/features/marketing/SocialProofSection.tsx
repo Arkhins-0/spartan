@@ -269,7 +269,7 @@ export default function SocialProofSection() {
                 ))}
                 <Typography
                   component="a"
-                  href="https://github.com/Arkhins-0/Spartan"
+                  href="https://github.com/Arkhins-0/spartan"
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="body2"

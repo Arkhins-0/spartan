@@ -66,7 +66,7 @@ describe('MarketingFooter', () => {
     it('renders social media links', () => {
       renderWithTheme(<MarketingFooter />);
 
-      expect(screen.getByLabelText('GitHub')).toHaveAttribute('href', 'https://github.com/Arkhins-0/Spartan');
+      expect(screen.getByLabelText('GitHub')).toHaveAttribute('href', 'https://github.com/Arkhins-0/spartan');
       expect(screen.getByLabelText('Instagram')).toHaveAttribute('href', 'https://instagram.com/arkhins');
       expect(screen.getByLabelText('LinkedIn')).toHaveAttribute('href', 'https://linkedin.com/in/krishna-vijay');
     });

@@ -55,7 +55,7 @@ const footerSections = [
 // Social icons are muted text that steps up to text.primary on hover — no
 // brand colours, so the row reads the same in both schemes.
 const socialLinks = [
-  { icon: GitHubIcon, href: 'https://github.com/Arkhins-0/Spartan', label: 'GitHub' },
+  { icon: GitHubIcon, href: 'https://github.com/Arkhins-0/spartan', label: 'GitHub' },
   { icon: InstagramIcon, href: 'https://instagram.com/arkhins', label: 'Instagram' },
   { icon: LinkedInIcon, href: 'https://linkedin.com/in/krishna-vijay', label: 'LinkedIn' },
 ];
@@ -200,7 +200,7 @@ export default function MarketingFooter() {
               Open source: code under{' '}
               <Box
                 component="a"
-                href="https://github.com/Arkhins-0/Spartan/blob/main/LICENSE"
+                href="https://github.com/Arkhins-0/spartan/blob/main/LICENSE"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={inlineLinkSx}
@@ -210,7 +210,7 @@ export default function MarketingFooter() {
               , docs under{' '}
               <Box
                 component="a"
-                href="https://github.com/Arkhins-0/Spartan/blob/main/LICENSE-DOCS"
+                href="https://github.com/Arkhins-0/spartan/blob/main/LICENSE-DOCS"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={inlineLinkSx}

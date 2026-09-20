@@ -3,12 +3,12 @@
 
   # Spartan
 
-  [![Release](https://github.com/Arkhins-0/Spartan/workflows/Release/badge.svg)](https://github.com/Arkhins-0/Spartan/actions/workflows/release.yml)
+  [![Release](https://github.com/Arkhins-0/spartan/workflows/Release/badge.svg)](https://github.com/Arkhins-0/spartan/actions/workflows/release.yml)
   [![ADRs](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FArkhins-0%2FSpartan%2Fbadges%2F.adrkit%2Flint.json&query=%24.checked&label=ADRs&color=cb492d)](./docs/adr)
   [![ARB queue](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FArkhins-0%2FSpartan%2Fbadges%2F.adrkit%2Fqueue.json&query=%24.totalItems&label=ARB%20queue&suffix=%20pending&color=cb492d)](./docs/adr)
   [![Code License](https://img.shields.io/badge/code-Apache--2.0-blue.svg)](./LICENSE)
   [![Docs License](https://img.shields.io/badge/docs-CC%20BY%204.0-blue.svg)](./LICENSE-DOCS)
-  [![Version](https://img.shields.io/github/v/release/Arkhins-0/Spartan)](https://github.com/Arkhins-0/Spartan/releases/latest)
+  [![Version](https://img.shields.io/github/v/release/Arkhins-0/spartan)](https://github.com/Arkhins-0/spartan/releases/latest)
 </div>
 
 A free, open-source platform for running motorsport championships and race teams. Simplify your season with tools for entry lists, race weekends, session timetables, marshal signup, circuits, and paddock communication.
@@ -43,7 +43,7 @@ The MVP includes user authentication, race team creation, entry list management 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Arkhins-0/Spartan.git
+git clone https://github.com/Arkhins-0/spartan.git
 cd Spartan
 
 # 2. Install dependencies
@@ -707,7 +707,7 @@ bun run start
 1. **Check the logs**: Vercel dashboard → Functions → View logs
 2. **Database issues**: Neon dashboard → Monitoring
 3. **Email issues**: Mailchimp dashboard → Reports
-4. **GitHub Issues**: [Create an issue](https://github.com/Arkhins-0/Spartan/issues) with:
+4. **GitHub Issues**: [Create an issue](https://github.com/Arkhins-0/spartan/issues) with:
    - Error message
    - Steps to reproduce
    - Environment details (Node version, OS, etc.)
@@ -832,7 +832,7 @@ Self-hosting is fully supported and encouraged for your own organization:
 
 ```bash
 # Clone and deploy
-git clone https://github.com/Arkhins-0/Spartan.git
+git clone https://github.com/Arkhins-0/spartan.git
 cd Spartan
 bun install
 # Configure .env.local with your services

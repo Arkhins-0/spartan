@@ -31,8 +31,8 @@ const channels = [
     icon: GitHubIcon,
     title: 'GitHub',
     description: 'For open-source contributions, discussions, and community support:',
-    label: 'github.com/Arkhins-0/Spartan',
-    href: 'https://github.com/Arkhins-0/Spartan',
+    label: 'github.com/Arkhins-0/spartan',
+    href: 'https://github.com/Arkhins-0/spartan',
     external: true,
   },
   {
@@ -40,7 +40,7 @@ const channels = [
     title: 'Report Issues',
     description: 'Found a bug or have a feature request? Submit an issue on GitHub:',
     label: 'Submit an Issue',
-    href: 'https://github.com/Arkhins-0/Spartan/issues',
+    href: 'https://github.com/Arkhins-0/spartan/issues',
     external: true,
   },
   {

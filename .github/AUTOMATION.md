@@ -8,16 +8,16 @@ Spartan uses GitHub Actions to automate the entire release lifecycle, from versi
 
 | Workflow | Trigger | Status | Purpose |
 |----------|---------|--------|---------|
-| **Quality Gates** | PR to `main`, push to `main` | ![Quality Gates](https://github.com/Arkhins-0/Spartan/workflows/Quality%20Gates/badge.svg) | Type-check, lint, and the unit test suite |
-| **Runtime Smoke Tests** | PR to `main`, push to `main` | ![Runtime Smoke Tests](https://github.com/Arkhins-0/Spartan/workflows/Runtime%20Smoke%20Tests/badge.svg) | Boot the production build, sign in, render critical pages |
-| **Architecture Decision Records** | PR to `main` | ![Architecture Decision Records](https://github.com/Arkhins-0/Spartan/workflows/Architecture%20Decision%20Records/badge.svg) | Lint the ADR corpus, enforce the raw-SQL ban, comment governing decisions |
-| **Architecture Decision Review Dates** | Monthly schedule | ![Architecture Decision Review Dates](https://github.com/Arkhins-0/Spartan/workflows/Architecture%20Decision%20Review%20Dates/badge.svg) | Track ADRs past their `reviewBy` date |
-| **Release** | Push to `main` | ![Release](https://github.com/Arkhins-0/Spartan/workflows/Release/badge.svg) | Automated releases with semantic versioning |
-| **Tag Release** | Push tag `v*.*.*` | ![Tag Release](https://github.com/Arkhins-0/Spartan/workflows/Tag%20Release/badge.svg) | Release from manual tags |
-| **Version Check** | PR to `main` | ![Version Check](https://github.com/Arkhins-0/Spartan/workflows/Version%20Check/badge.svg) | Validate version bumps in PRs |
-| **Documentation Pages** | Docs changes on `main` | ![Documentation Pages](https://github.com/Arkhins-0/Spartan/workflows/Documentation%20Pages/badge.svg) | Build and deploy static docs to GitHub Pages |
-| **Deployment Checks** | Deployment/docs PR changes | ![Deployment Checks](https://github.com/Arkhins-0/Spartan/workflows/Deployment%20Checks/badge.svg) | Validate deployment config and docs artifact |
-| **Uptime Monitoring** | Scheduled | ![Uptime Monitoring](https://github.com/Arkhins-0/Spartan/workflows/Uptime%20Monitoring/badge.svg) | Probe production endpoints |
+| **Quality Gates** | PR to `main`, push to `main` | ![Quality Gates](https://github.com/Arkhins-0/spartan/workflows/Quality%20Gates/badge.svg) | Type-check, lint, and the unit test suite |
+| **Runtime Smoke Tests** | PR to `main`, push to `main` | ![Runtime Smoke Tests](https://github.com/Arkhins-0/spartan/workflows/Runtime%20Smoke%20Tests/badge.svg) | Boot the production build, sign in, render critical pages |
+| **Architecture Decision Records** | PR to `main` | ![Architecture Decision Records](https://github.com/Arkhins-0/spartan/workflows/Architecture%20Decision%20Records/badge.svg) | Lint the ADR corpus, enforce the raw-SQL ban, comment governing decisions |
+| **Architecture Decision Review Dates** | Monthly schedule | ![Architecture Decision Review Dates](https://github.com/Arkhins-0/spartan/workflows/Architecture%20Decision%20Review%20Dates/badge.svg) | Track ADRs past their `reviewBy` date |
+| **Release** | Push to `main` | ![Release](https://github.com/Arkhins-0/spartan/workflows/Release/badge.svg) | Automated releases with semantic versioning |
+| **Tag Release** | Push tag `v*.*.*` | ![Tag Release](https://github.com/Arkhins-0/spartan/workflows/Tag%20Release/badge.svg) | Release from manual tags |
+| **Version Check** | PR to `main` | ![Version Check](https://github.com/Arkhins-0/spartan/workflows/Version%20Check/badge.svg) | Validate version bumps in PRs |
+| **Documentation Pages** | Docs changes on `main` | ![Documentation Pages](https://github.com/Arkhins-0/spartan/workflows/Documentation%20Pages/badge.svg) | Build and deploy static docs to GitHub Pages |
+| **Deployment Checks** | Deployment/docs PR changes | ![Deployment Checks](https://github.com/Arkhins-0/spartan/workflows/Deployment%20Checks/badge.svg) | Validate deployment config and docs artifact |
+| **Uptime Monitoring** | Scheduled | ![Uptime Monitoring](https://github.com/Arkhins-0/spartan/workflows/Uptime%20Monitoring/badge.svg) | Probe production endpoints |
 
 ## Quick Start
 
@@ -333,7 +333,7 @@ git push
 If you encounter issues with the release automation:
 
 1. Check [Troubleshooting](#troubleshooting) section
-2. Review [workflow logs](https://github.com/Arkhins-0/Spartan/actions)
+2. Review [workflow logs](https://github.com/Arkhins-0/spartan/actions)
 3. Open an issue with the `ci` label
 4. Contact maintainers
 

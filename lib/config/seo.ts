@@ -117,7 +117,7 @@ export function getOrganizationSchema() {
         logo: `${SITE_CONFIG.url}/images/logo.png`,
         description: SITE_CONFIG.description,
         sameAs: [
-            'https://github.com/Arkhins-0/Spartan',
+            'https://github.com/Arkhins-0/spartan',
             'https://instagram.com/arkhins',
             'https://linkedin.com/in/krishna-vijay',
             'https://arkhins.com',

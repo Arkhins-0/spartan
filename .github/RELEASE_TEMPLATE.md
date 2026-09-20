@@ -126,7 +126,7 @@ git push origin main
 - Dependency updates
 - Documentation improvements
 
-**Full Changelog**: https://github.com/Arkhins-0/Spartan/compare/v1.0.0...v1.1.0
+**Full Changelog**: https://github.com/Arkhins-0/spartan/compare/v1.0.0...v1.1.0
 ```
 
 ## Notes

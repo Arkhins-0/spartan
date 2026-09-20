@@ -519,7 +519,7 @@ bunx prisma db pull
 
 #### Community Support
 
-- **GitHub Issues**: [Create an issue](https://github.com/Arkhins-0/Spartan/issues) with:
+- **GitHub Issues**: [Create an issue](https://github.com/Arkhins-0/spartan/issues) with:
 
   - Error messages and stack traces
   - Steps to reproduce the problem

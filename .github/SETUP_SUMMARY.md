@@ -252,7 +252,7 @@ Potential improvements for the release automation:
 If you encounter issues:
 
 1. Check [Troubleshooting](#-troubleshooting) section
-2. Review [workflow logs](https://github.com/Arkhins-0/Spartan/actions)
+2. Review [workflow logs](https://github.com/Arkhins-0/spartan/actions)
 3. Read related documentation
 4. Open an issue with `ci` label
 

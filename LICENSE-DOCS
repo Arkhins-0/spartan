@@ -12,9 +12,9 @@ This license applies to the published documentation prose in:
 
   - docs/*.md           — top-level repository documentation only
   - app/docs/**/*.mdx   — the MDX documentation content behind
-                          https://docs.spartan.arkhins.com
+                          https://spartan.arkhins.com/docs
 
-These are exactly the files published to https://docs.spartan.arkhins.com by
+These are exactly the files published to https://spartan.arkhins.com/docs by
 scripts/build-docs-pages.ts.
 
 Everything else in the repository remains licensed under the Apache License
@@ -34,7 +34,7 @@ Attribution
 When reusing this documentation, credit as:
 
   "Spartan Documentation" by Arkhins, licensed under CC BY 4.0.
-  https://github.com/Arkhins-0/Spartan
+  https://github.com/Arkhins-0/spartan
 
 Spartan is a fork of OpenLeague. Portions of this documentation derive from
 "OpenLeague Documentation" by Mark Beacom, also licensed under CC BY 4.0
