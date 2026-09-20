@@ -15,9 +15,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           flash). Rendered here rather than the server-owned root layout; the
           inline script still lands at the top of <body> in the SSR stream.
           Its defaults (attribute, mui-mode/mui-color-scheme storage keys)
-          match MuiThemeProvider's and lib/theme.ts's colorSchemeSelector. */}
-      <InitColorSchemeScript attribute="data-mui-color-scheme" defaultMode="system" />
-      <MuiThemeProvider theme={theme} defaultMode="system" disableTransitionOnChange>
+          match MuiThemeProvider's and lib/theme.ts's colorSchemeSelector.
+
+          defaultMode is "light", not "system": the light scheme is the
+          designed default, and following the OS meant anyone with dark mode
+          on never saw it. Dark stays one click away in ThemeToggle. */}
+      <InitColorSchemeScript attribute="data-mui-color-scheme" defaultMode="light" />
+      <MuiThemeProvider theme={theme} defaultMode="light" disableTransitionOnChange>
         {/* Single app-wide MUI X pickers provider (AdapterDateFns = date-fns v3/v4). */}
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <CssBaseline />
